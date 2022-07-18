@@ -1,0 +1,62 @@
+package com.example.specificcase;
+import java.util.Scanner;
+
+public class SpecificCase {
+    String substr;
+    int replace_index = -1;
+    boolean invalid = true;
+
+    public SpecificCase() {
+        Scanner input = new Scanner(System.in);
+
+        //get starting string
+        System.out.println("Enter your singular word!");
+        String str = input.next();
+
+        //get letter(s) to replace
+        System.out.println("Enter singular letter (with proper casing) you wish to change the case of:" +
+                " (Note: If repeated letter exists only the first occurrence will be changed");
+
+        while(replace_index == -1) {
+            String fixStr = input.next();
+            replace_index = str.indexOf(fixStr);
+
+            if (replace_index == -1) {
+                System.out.println("This letter or its case does not exist! Please try again:");
+            }
+        }
+
+        //upper case or lower case?
+        System.out.println("Type in 'uppercase' or 'lowercase' to perform said action:");
+        while (invalid) {
+            String whtChange = input.next();
+
+            //change case of string component
+            if (whtChange.equalsIgnoreCase("uppercase")) {
+                substr = str.substring(replace_index, replace_index + 1);
+                substr = substr.toUpperCase();
+                //build string with new cases
+                str = str.substring(0, replace_index) + substr + str.substring(replace_index + 1);
+
+                invalid = false;
+            } else if (whtChange.equalsIgnoreCase("lowercase")) {
+                substr = str.substring(replace_index, replace_index + 1);
+                substr = substr.toLowerCase();
+                //build string with new cases
+                str = str.substring(0, replace_index) + substr + str.substring(replace_index + 1);
+
+                invalid = false;
+            } else {
+                System.out.println("This is not a valid answer!");
+            }
+
+
+        }
+
+        System.out.println(str);
+    }
+    public static void main(String[] args){
+        new SpecificCase();
+
+    }
+}
